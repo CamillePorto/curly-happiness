@@ -1,5 +1,7 @@
 package com.codedotorg;
 
+import java.util.Random;
+
 public class AppLogic {
 
     /** The pin to unlock the app */
@@ -7,6 +9,7 @@ public class AppLogic {
 
     /** The pin the user has provided */
     private String user;
+
 
     /**
      * Constructor for the AppLogic class.
@@ -23,8 +26,16 @@ public class AppLogic {
      * @return the user PIN as a string
      */
     public String createUserPin(String predictedClass) {
-        
+        user += predictedClass;
         return "";
+    }
+
+    /**
+     * Checks if the user's PIN is equal to the real PIN.
+     * @return true if the user's PIN is equal to the real PIN, false otherwise.
+     */
+    public boolean checkPin() {
+        return user.equals(pin);
     }
 
     /**
@@ -32,8 +43,7 @@ public class AppLogic {
      * @return true if the length of the user's PIN is equal to 4, false otherwise.
      */
     public boolean checkPinLength() {
-        
-        return false;
+        return user.length() == 4;
     }
 
     /**
@@ -42,8 +52,13 @@ public class AppLogic {
      * @return a string indicating whether the PIN is correct or not
      */
     public String getPinStatus(String userPin) {
-        
-        return "";
+        if (userPin.length() != 4) {
+            return "Length error";
+        } else if (!userPin.equals(pin)) {
+            return "Invalid";
+        } else {
+            return "Valid";
+        }
     }
     
     /**
@@ -60,8 +75,9 @@ public class AppLogic {
      * @return the generated PIN number as a string.
      */
     private String createRandomPin() {
-        
-        return "";
+        Random random = new Random();
+        int pin = random.nextInt(9000) + 1000; // This will generate a random 4-digit number.
+        return String.valueOf(pin);
     }
 
 }
